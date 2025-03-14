@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-blue-400 to-purple-500 min-h-screen flex items-center justify-center">
+  <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-4xl">
+    <div class="flex">
+      <div class="w-1/2 p-4">
+        <h2 class="text-2xl font-bold mb-4">General Information</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <input id="title" name="title" placeholder="Title" class="border p-2" />
+          <input id="firstName" name="firstName" placeholder="First Name" class="border p-2" />
+          <input id="lastName" name="lastName" placeholder="Last Name" class="border p-2" />
+          <input id="position" name="position" placeholder="Position" class="border p-2" />
+          <input id="company" name="company" placeholder="Company" class="border p-2" />
+          <input id="businessArena" name="businessArena" placeholder="Business Arena" class="border p-2" />
+          <input id="employees" name="employees" placeholder="Employees" class="border p-2" />
+        </div>
+      </div>
+      <div class="w-1/2 p-4 bg-blue-900 text-white rounded-r-lg">
+        <h2 class="text-2xl font-bold mb-4">Contact Details</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <input id="street" name="street" placeholder="Street" class="border p-2 text-black" />
+          <input id="additionalInformation" name="additionalInformation" placeholder="Additional Information" class="border p-2 text-black" />
+          <input id="zipCode" name="zipCode" placeholder="Zip Code" class="border p-2 text-black" />
+          <input id="place" name="place" placeholder="Place" class="border p-2 text-black" />
+          <input id="country" name="country" placeholder="Country" class="border p-2 text-black" />
+          <input id="code" name="code" placeholder="Code" class="border p-2 text-black" />
+          <input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="border p-2 text-black" />
+          <input id="email" name="email" placeholder="Email" class="border p-2 text-black" />
+        </div>
+        <div class="my-4">
+          <label class="inline-flex items-center">
+            <input type="checkbox" class="form-checkbox" />
+            <span class="ml-2">I do accept the <a href="#" class="underline">Terms and Conditions</a> of your site.</span>
+          </label>
+        </div>
+        <button id="submitBtn" class="bg-white text-blue-900 font-bold py-2 px-4 rounded-full">Register Badge</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('submitBtn').addEventListener('click', async (event) => {
+      event.preventDefault();
+      const form = {
+        title: document.getElementById('title').value,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        position: document.getElementById('position').value,
+        company: document.getElementById('company').value,
+        businessArena: document.getElementById('businessArena').value,
+        employees: document.getElementById('employees').value,
+        street: document.getElementById('street').value,
+        additionalInformation: document.getElementById('additionalInformation').value,
+        zipCode: document.getElementById('zipCode').value,
+        place: document.getElementById('place').value,
+        country: document.getElementById('country').value,
+        code: document.getElementById('code').value,
+        phoneNumber: document.getElementById('phoneNumber').value,
+        email: document.getElementById('email').value,
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/api/forms', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        });
+
+        const data = await response.json();
+        console.log('Form submitted:', data);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    });
+  </script>
+</body>
+</html>
